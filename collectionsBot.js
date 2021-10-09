@@ -1,6 +1,7 @@
 import { Client, Intents } from "discord.js";
-import { BOT_TOKEN } from "./config.js";
+import { BOT_TOKEN, HELP_TRIGGER } from "./config.js";
 import { handleStatQuery } from "./controllers/statControllers.js";
+import { handleHelpQuery } from "./controllers/helpControllers.js";
 
 const client = new Client({
   intents: [
@@ -12,8 +13,8 @@ const client = new Client({
 
 client.on("messageCreate", async (message) => {
   switch (message.content) {
-    case ".help":
-      return;
+    case HELP_TRIGGER:
+      return handleHelpQuery(message);
     default:
       return handleStatQuery(message);
   }
